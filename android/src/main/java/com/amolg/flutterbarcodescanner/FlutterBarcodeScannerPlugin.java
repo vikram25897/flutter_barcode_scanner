@@ -19,7 +19,7 @@ import com.google.android.gms.vision.barcode.Barcode;
 
 import java.util.Map;
 
-import io.flutter.app.FlutterActivity;
+import io.flutter.app.FlutterFragmentActivity;
 import io.flutter.plugin.common.EventChannel;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
@@ -38,7 +38,7 @@ public class FlutterBarcodeScannerPlugin implements MethodCallHandler, ActivityR
     private static final int REQUEST_CODE_CAMERA_PERMISSION = 3777;
     private static FlutterBarcodeScannerPlugin instance;
 
-    private static FlutterActivity activity;
+    private static FlutterFragmentActivity activity;
     private static Result pendingResult;
     private Map<String, Object> arguments;
     private boolean executeAfterPermissionGranted;
@@ -52,7 +52,7 @@ public class FlutterBarcodeScannerPlugin implements MethodCallHandler, ActivityR
     private Application.ActivityLifecycleCallbacks activityLifecycleCallbacks;
     private final PluginRegistry.Registrar registrar;
 
-    private FlutterBarcodeScannerPlugin(FlutterActivity activity, final PluginRegistry.Registrar registrar) {
+    private FlutterBarcodeScannerPlugin(FlutterFragmentActivity activity, final PluginRegistry.Registrar registrar) {
         FlutterBarcodeScannerPlugin.activity = activity;
         this.registrar = registrar;
 
@@ -107,7 +107,7 @@ public class FlutterBarcodeScannerPlugin implements MethodCallHandler, ActivityR
             return;
         }
         final MethodChannel channel = new MethodChannel(registrar.messenger(), CHANNEL);
-        instance = new FlutterBarcodeScannerPlugin((FlutterActivity) registrar.activity(), registrar);
+        instance = new FlutterBarcodeScannerPlugin((FlutterFragmentActivity) registrar.activity(), registrar);
         registrar.addActivityResultListener(instance);
         channel.setMethodCallHandler(instance);
 
